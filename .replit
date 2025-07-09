@@ -2,12 +2,14 @@
 [deployment]
 run = ["sh", "-c", "npm run dev"]
 
-[[ports]]
-localPort = 5174
-externalPort = 80
-exposeLocalhost = true
+[workflows]
+runButton = "Dev Server"
 
-[[ports]]
-localPort = 5173
-externalPort = 3000
-exposeLocalhost = true
+[[workflows.workflow]]
+name = "Dev Server"
+author = 42905820
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
