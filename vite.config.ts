@@ -40,7 +40,7 @@ export default defineConfig((config) => {
           return null;
         },
       },
-      config.mode !== 'test' && remixCloudflareDevProxy(),
+      // config.mode !== 'test' && remixCloudflareDevProxy(), // Temporarily disabled
       remixVitePlugin({
         future: {
           v3_fetcherPersist: true,
