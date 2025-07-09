@@ -1,0 +1,35 @@
+warn  Data fetching is changing to a single fetch in React Router v7
+┃ You can use the `v3_singleFetch` future flag to opt-in early.
+┃ -> https://remix.run/docs/en/2.13.1/start/future-flags#v3_singleFetch
+┗
+Error: write EPIPE
+    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)
+    at __node_internal_errnoException (node:internal/errors:623:12)
+    at afterWriteDispatched (node:internal/stream_base_commons:160:15)
+    at writeGeneric (node:internal/stream_base_commons:151:3)
+    at Socket._writeGeneric (node:net:962:11)
+    at Socket._write (node:net:974:8)
+    at writeOrBuffer (node:internal/streams/writable:392:12)
+    at _write (node:internal/streams/writable:333:10)
+    at Socket.Writable.write (node:internal/streams/writable:337:10)
+    at Runtime.updateConfig (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/runtime/index.ts:154:24)
+    at _Miniflare.#assembleAndUpdateConfig (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/index.ts:1471:28)
+    at Mutex.runWith (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/workers/shared/sync.ts:66:45)
+    at _Miniflare.#waitForReady (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/index.ts:1572:3)
+    at _Miniflare._getProxyClient (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/index.ts:1784:3)
+    at _Miniflare.getBindings (/home/runner/workspace/node_modules/.pnpm/miniflare@4.20250321.1/node_modules/miniflare/src/index.ts:1807:23)
+    at getPlatformProxy (/home/runner/workspace/node_modules/.pnpm/wrangler@4.6.0_@cloudflare+workers-types@4.20250327.0/node_modules/wrangler/src/api/integrations/platform/index.ts:118:24)
+    at configureServer (/home/runner/workspace/node_modules/.pnpm/@remix-run+dev@2.16.3_@remix-run+react@2.16.3_react-dom@18.3.1_react@18.3.1__react@18.3.1_typ_56tyhioi4fkoibvrjndu6yshyi/node_modules/@remix-run/dev/dist/vite/cloudflare-proxy-plugin.js:55:11)
+    at _createServer (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:63240:20)
+    at configResolved (/home/runner/workspace/node_modules/.pnpm/@remix-run+dev@2.16.3_@remix-run+react@2.16.3_react-dom@18.3.1_react@18.3.1__react@18.3.1_typ_56tyhioi4fkoibvrjndu6yshyi/node_modules/@remix-run/dev/dist/vite/plugin.js:759:27)
+    at async Promise.all (index 3)
+    at resolveConfig (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:66589:3)
+    at _createServer (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:62918:18)
+    at dev (/home/runner/workspace/node_modules/.pnpm/@remix-run+dev@2.16.3_@remix-run+react@2.16.3_react-dom@18.3.1_react@18.3.1__react@18.3.1_typ_56tyhioi4fkoibvrjndu6yshyi/node_modules/@remix-run/dev/dist/vite/dev.js:39:16)
+    at Object.viteDev (/home/runner/workspace/node_modules/.pnpm/@remix-run+dev@2.16.3_@remix-run+react@2.16.3_react-dom@18.3.1_react@18.3.1__react@18.3.1_typ_56tyhioi4fkoibvrjndu6yshyi/node_modules/@remix-run/dev/dist/cli/commands.js:221:3)
+    at Object.run (/home/runner/workspace/node_modules/.pnpm/@remix-run+dev@2.16.3_@remix-run+react@2.16.3_react-dom@18.3.1_react@18.3.1__react@18.3.1_typ_56tyhioi4fkoibvrjndu6yshyi/node_modules/@remix-run/dev/dist/cli/run.js:271:7) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+ ELIFECYCLE  Command failed with exit code 1.
