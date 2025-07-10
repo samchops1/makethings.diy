@@ -13,6 +13,7 @@ import { ClientOnly } from 'remix-utils/client-only';
 import reactToastifyStyles from 'react-toastify/dist/ReactToastify.css?url';
 import globalStyles from './styles/index.scss?url';
 import xtermStyles from '@xterm/xterm/css/xterm.css?url';
+import { initializeProfile } from './lib/stores/profile';
 
 import 'virtual:uno.css';
 
@@ -93,6 +94,11 @@ export default function App() {
       userAgent: navigator.userAgent,
       timestamp: new Date().toISOString(),
     });
+  }, []);
+
+  useEffect(() => {
+    // Initialize Replit authentication
+    initializeProfile();
   }, []);
 
   return (

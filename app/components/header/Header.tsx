@@ -4,6 +4,7 @@ import { chatStore } from '~/lib/stores/chat';
 import { classNames } from '~/utils/classNames';
 import { HeaderActionButtons } from './HeaderActionButtons.client';
 import { ChatDescription } from '~/lib/persistence/ChatDescription.client';
+import { ReplitLoginButton } from '~/components/auth/ReplitLoginButton';
 
 export function Header() {
   const chat = useStore(chatStore);
@@ -30,12 +31,20 @@ export function Header() {
           </span>
           <ClientOnly>
             {() => (
-              <div className="">
+              <div className="flex items-center gap-4">
+                <ReplitLoginButton showUserInfo={false} />
                 <HeaderActionButtons chatStarted={chat.started} />
               </div>
             )}
           </ClientOnly>
         </>
+      )}
+      {!chat.started && (
+        <div className="ml-auto">
+          <ClientOnly>
+            {() => <ReplitLoginButton />}
+          </ClientOnly>
+        </div>
       )}
     </header>
   );
