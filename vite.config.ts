@@ -19,7 +19,11 @@ export default defineConfig((config) => {
     server: {
     port: 5173,
     host: '0.0.0.0',
-    allowedHosts: 'all',
+    allowedHosts: ['localhost', '.replit.dev', '.kirk.replit.dev'],
+    hmr: {
+      port: 5173,
+      host: '0.0.0.0'
+    },
     watch: {
       usePolling: true,
       interval: 1000,
