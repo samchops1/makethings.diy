@@ -14,8 +14,8 @@ export default async function handleRequest(
 ) {
   // await initializeModelList({});
 
-  // Dynamic import to handle module resolution issues in development
-  const { renderToReadableStream } = await import('react-dom/server');
+  // Use server.browser to match electron configuration and avoid SSR issues
+  const { renderToReadableStream } = await import('react-dom/server.browser');
 
   const readable = await renderToReadableStream(<RemixServer context={remixContext} url={request.url} />, {
     signal: request.signal,
