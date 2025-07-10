@@ -13,8 +13,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const userRoles = request.headers.get('X-Replit-User-Roles');
     const userTeams = request.headers.get('X-Replit-User-Teams');
 
+    // Log the current domain for debugging
+    const host = request.headers.get('host');
+    console.log('Current host:', host);
+
     if (!userId) {
-      return json({ authenticated: false, user: null });
+      return json({ 
+        authenticated: false, 
+        user: null, 
+        error: 'No user ID found in headers',
+        host: host 
+      });
     }
 
     const user = {
