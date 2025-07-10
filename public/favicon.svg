@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-  <rect width="16" height="16" rx="2" fill="#8A5FFF" />
-  <path d="M7.398 9.091h-3.58L10.364 2 8.602 6.909h3.58L5.636 14l1.762-4.909Z" fill="#fff" />
+
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- Yellow rounded rectangle background -->
+  <rect x="2" y="2" width="28" height="28" rx="4" ry="4" fill="#FFD700"/>
+  
+  <!-- Code symbol -->
+  <path d="M8 12 L12 10 L12 14 L16 12 L20 14 L20 10 L24 12 L20 18 L16 16 L12 18 L8 16 Z" fill="#1A1A1A"/>
+  
+  <!-- Simplified brackets -->
+  <path d="M10 20 L14 22 L18 20 L22 22" stroke="#1A1A1A" stroke-width="2" fill="none"/>
 </svg>

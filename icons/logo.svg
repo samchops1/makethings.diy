@@ -1,4 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-  <rect width="16" height="16" rx="2" fill="#1389fd" />
-  <path d="M7.398 9.091h-3.58L10.364 2 8.602 6.909h3.58L5.636 14l1.762-4.909Z" fill="#fff" />
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <!-- Yellow rounded rectangle background -->
+  <rect x="72" y="378" width="256" height="256" rx="32" ry="32" fill="#FFD700"/>
+  
+  <!-- Code brackets -->
+  <path d="M144 450 L144 450 C144 445.58 147.58 442 152 442 L152 442 C156.42 442 160 445.58 160 450 L160 562 C160 566.42 156.42 570 152 570 L152 570 C147.58 570 144 566.42 144 562 L144 450 Z M200 450 L200 450 C200 445.58 203.58 442 208 442 L208 442 C212.42 442 216 445.58 216 450 L216 562 C216 566.42 212.42 570 208 570 L208 570 C203.58 570 200 566.42 200 562 L200 450 Z" fill="#1A1A1A"/>
+  
+  <!-- Left bracket -->
+  <path d="M132 470 L132 470 C127.58 470 124 473.58 124 478 L124 534 C124 538.42 127.58 542 132 542 L132 542 C136.42 542 140 538.42 140 534 L140 478 C140 473.58 136.42 470 132 470 Z" fill="#1A1A1A"/>
+  
+  <!-- Right bracket -->
+  <path d="M228 470 L228 470 C232.42 470 236 473.58 236 478 L236 534 C236 538.42 232.42 542 228 542 L228 542 C223.58 542 220 538.42 220 534 L220 478 C220 473.58 223.58 470 228 470 Z" fill="#1A1A1A"/>
+  
+  <!-- Slash -->
+  <path d="M184 450 L164 562 C163.11 566.24 166.76 570 171 570 C174.31 570 177.24 567.69 178 564.44 L198 452.44 C198.89 448.2 195.24 444.44 191 444.44 C187.69 444.44 184.76 446.75 184 450 Z" fill="#1A1A1A"/>
+  
+  <!-- Text: "make" -->
+  <text x="374" y="480" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2">make</text>
+  
+  <!-- Text: "things.dev" -->
+  <text x="366" y="620" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2">things.dev</text>
 </svg>
