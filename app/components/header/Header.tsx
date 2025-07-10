@@ -1,13 +1,33 @@
 import { useStore } from '@nanostores/react';
 import { ClientOnly } from 'remix-utils/client-only';
 import { chatStore } from '~/lib/stores/chat';
+import { profileStore } from '~/lib/stores/profile';
 import { classNames } from '~/utils/classNames';
 import { HeaderActionButtons } from './HeaderActionButtons.client';
 import { ChatDescription } from '~/lib/persistence/ChatDescription.client';
 import { ReplitLoginButton } from '~/components/auth/ReplitLoginButton';
+import { ReplitAuthService } from '~/lib/services/replitAuth';
+import { useEffect } from 'react';
 
 export function Header() {
   const chat = useStore(chatStore);
+  const profile = useStore(profileStore);
+
+  // Refresh profile on component mount if still showing guest
+  useEffect(() => {
+    if (profile.isGuest) {
+      ReplitAuthService.getCurrentUser().then((user) => {
+        if (user) {
+          profileStore.set({
+            username: user.name || user.id,
+            avatar: user.profileImage,
+            bio: user.bio,
+            isGuest: false,
+          });
+        }
+      });
+    }
+  }, [profile.isGuest]);
 
   return (
     <header

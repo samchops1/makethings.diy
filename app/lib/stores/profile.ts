@@ -1,65 +1,44 @@
-
 import { atom } from 'nanostores';
 import { ReplitAuthService } from '../services/replitAuth';
 
 interface Profile {
-  id?: string;
   username: string;
-  bio: string;
-  avatar: string;
+  avatar?: string;
+  bio?: string;
   isGuest: boolean;
-  roles?: string[];
-  teams?: string[];
 }
 
-// Initialize with guest profile
 const initialProfile: Profile = {
   username: 'Guest User',
-  bio: '',
-  avatar: '',
   isGuest: true,
 };
 
 export const profileStore = atom<Profile>(initialProfile);
 
-export const initializeProfile = async () => {
-  try {
-    const replitUser = await ReplitAuthService.getCurrentUser();
-    
-    if (replitUser) {
-      profileStore.set({
-        id: replitUser.id,
-        username: replitUser.name,
-        bio: replitUser.bio,
-        avatar: replitUser.profileImage,
-        isGuest: false,
-        roles: replitUser.roles,
-        teams: replitUser.teams,
-      });
-    } else {
-      // Check localStorage for any stored profile
-      const storedProfile = typeof window !== 'undefined' ? localStorage.getItem('bolt_profile') : null;
-      if (storedProfile) {
-        const parsed = JSON.parse(storedProfile);
-        profileStore.set({ ...parsed, isGuest: true });
+// Initialize profile on startup and set up periodic checks
+if (typeof window !== 'undefined') {
+  const initializeProfile = async () => {
+    try {
+      const user = await ReplitAuthService.getCurrentUser();
+      if (user) {
+        profileStore.set({
+          username: user.name || user.id,
+          avatar: user.profileImage,
+          bio: user.bio,
+          isGuest: false,
+        });
       }
+    } catch (error) {
+      console.error('Failed to initialize profile:', error);
     }
-  } catch (error) {
-    console.error('Error initializing profile:', error);
-    profileStore.set(initialProfile);
-  }
-};
+  };
 
-export const updateProfile = (updates: Partial<Profile>) => {
-  const current = profileStore.get();
-  const updated = { ...current, ...updates };
-  profileStore.set(updated);
+  // Initialize immediately
+  initializeProfile();
 
-  // Only persist to localStorage if user is guest
-  if (updated.isGuest && typeof window !== 'undefined') {
-    localStorage.setItem('bolt_profile', JSON.stringify(updated));
-  }
-};
+  // Check auth status periodically in case it changes
+  setInterval(initializeProfile, 30000); // Check every 30 seconds
+}
 
 export const loginWithReplit = () => {
   ReplitAuthService.loginWithReplit();
