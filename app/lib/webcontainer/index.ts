@@ -22,12 +22,25 @@ if (!import.meta.env.SSR) {
   webcontainer =
     import.meta.hot?.data.webcontainer ??
     Promise.resolve()
-      .then(() => {
-        return WebContainer.boot({
-          coep: 'credentialless',
-          workdirName: WORK_DIR_NAME,
-          forwardPreviewErrors: true, // Enable error forwarding from iframes
-        });
+      .then(async () => {
+        console.log('Attempting to boot WebContainer...');
+        try {
+          const container = await WebContainer.boot({
+            coep: 'credentialless',
+            workdirName: WORK_DIR_NAME,
+            forwardPreviewErrors: true,
+          });
+          console.log('WebContainer booted successfully');
+          return container;
+        } catch (error) {
+          console.error('WebContainer boot failed:', error);
+          // Retry once more with different settings
+          console.log('Retrying WebContainer boot with fallback settings...');
+          return await WebContainer.boot({
+            workdirName: WORK_DIR_NAME,
+            forwardPreviewErrors: false,
+          });
+        }
       })
       .then(async (webcontainer) => {
         webcontainerContext.loaded = true;
@@ -46,17 +59,26 @@ if (!import.meta.env.SSR) {
           if (message.type === 'PREVIEW_UNCAUGHT_EXCEPTION' || message.type === 'PREVIEW_UNHANDLED_REJECTION') {
             const isPromise = message.type === 'PREVIEW_UNHANDLED_REJECTION';
             const title = isPromise ? 'Unhandled Promise Rejection' : 'Uncaught Exception';
-            workbenchStore.actionAlert.set({
-              type: 'preview',
-              title,
-              description: 'message' in message ? message.message : 'Unknown error',
-              content: `Error occurred at ${message.pathname}${message.search}${message.hash}\nPort: ${message.port}\n\nStack trace:\n${cleanStackTrace(message.stack || '')}`,
-              source: 'preview',
-            });
+            
+            // Only show alerts for actual application errors, not initialization errors
+            if (!message.message?.includes('WebContainer') && !message.message?.includes('boot')) {
+              workbenchStore.actionAlert.set({
+                type: 'preview',
+                title,
+                description: 'message' in message ? message.message : 'Unknown error',
+                content: `Error occurred at ${message.pathname}${message.search}${message.hash}\nPort: ${message.port}\n\nStack trace:\n${cleanStackTrace(message.stack || '')}`,
+                source: 'preview',
+              });
+            }
           }
         });
 
         return webcontainer;
+      })
+      .catch((error) => {
+        console.error('Failed to initialize WebContainer completely:', error);
+        webcontainerContext.loaded = false;
+        throw error;
       });
 
   if (import.meta.hot) {
