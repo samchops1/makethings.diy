@@ -38,8 +38,12 @@ export function Header() {
     >
       <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
         <div className="i-ph:sidebar-simple-duotone text-xl" />
-        <a href="/" className="text-2xl font-semibold text-accent flex items-center">
-          <img src="/logo.svg" alt="logo" className="w-[90px] inline-block" />
+        <a href="/" className="text-2xl font-bold text-accent flex items-center hover:scale-105 transition-transform duration-200">
+          <span className="text-bolt-elements-textPrimary">&lt;/&gt;</span>
+          <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold tracking-tight">
+            MakeThings
+          </span>
+          <span className="text-bolt-elements-textSecondary font-medium">.Dev</span>
         </a>
       </div>
       {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
