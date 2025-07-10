@@ -43,6 +43,14 @@ if (typeof window !== 'undefined') {
 
 export { initializeProfile };
 
+export const updateProfile = (updates: Partial<Profile>) => {
+  const currentProfile = profileStore.get();
+  profileStore.set({
+    ...currentProfile,
+    ...updates,
+  });
+};
+
 export const loginWithReplit = () => {
   ReplitAuthService.loginWithReplit();
 };
