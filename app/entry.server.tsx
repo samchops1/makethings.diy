@@ -1,8 +1,7 @@
 import type { AppLoadContext } from '@remix-run/cloudflare';
 import { RemixServer } from '@remix-run/react';
 import { isbot } from 'isbot';
-import reactDomServer from 'react-dom/server';
-const { renderToReadableStream } = reactDomServer;
+import * as ReactDOMServer from 'react-dom/server';
 import { renderHeadToString } from 'remix-island';
 import { Head } from './root';
 import { themeStore } from '~/lib/stores/theme';
@@ -16,7 +15,7 @@ export default async function handleRequest(
 ) {
   // await initializeModelList({});
 
-  const readable = await renderToReadableStream(<RemixServer context={remixContext} url={request.url} />, {
+  const readable = await ReactDOMServer.renderToReadableStream(<RemixServer context={remixContext} url={request.url} />, {
     signal: request.signal,
     onError(error: unknown) {
       console.error(error);
