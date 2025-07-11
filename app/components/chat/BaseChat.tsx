@@ -28,6 +28,15 @@ import type { ProgressAnnotation } from '~/types/context';
 import { SupabaseChatAlert } from '~/components/chat/SupabaseAlert';
 import { expoUrlAtom } from '~/lib/stores/qrCodeStore';
 import { useStore } from '@nanostores/react';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
+
+import { chatStore } from '~/lib/stores/chat';
+import { workbenchStore } from '~/lib/stores/workbench';
+import { fileModificationsToHTML } from '~/utils/diff';
+import { cubicEasingFn } from '~/utils/easings';
+import { createScopedLogger, renderLogger } from '~/utils/logger';
+import { initializeWebContainerWithRetry } from '~/lib/webcontainer/health-check';
 import { StickToBottom, useStickToBottomContext } from '~/lib/hooks';
 import { ChatBox } from './ChatBox';
 import type { DesignScheme } from '~/types/design-scheme';
@@ -140,6 +149,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
     const expoUrl = useStore(expoUrlAtom);
     const [qrModalOpen, setQrModalOpen] = useState(false);
+    const logger = createScopedLogger('BaseChat');
 
     useEffect(() => {
       if (expoUrl) {
@@ -334,6 +344,44 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
         }
       }
     };
+
+    useEffect(() => {
+    scrollToBottom();
+  }, [messages, isStreaming]);
+
+  useEffect(() => {
+    // Initialize WebContainer health check
+    const initializeWebContainer = async () => {
+      try {
+        logger.info('Initializing WebContainer...');
+        const success = await initializeWebContainerWithRetry(3);
+        if (success) {
+          logger.info('WebContainer initialized successfully');
+        } else {
+          logger.warn('WebContainer initialization failed after retries');
+          toast.error('WebContainer initialization failed. File operations may not work properly.');
+        }
+      } catch (error) {
+        logger.error('WebContainer initialization error:', error);
+        toast.error('WebContainer setup encountered an error. Please refresh the page.');
+      }
+    };
+
+    initializeWebContainer();
+
+    const unsubscribeTheme = themeStore.subscribe(() => {
+      // Force re-computation of syntax highlighting when theme changes
+    });
+
+    const unsubscribeFileModifications = workbenchStore.fileModifications.subscribe(() => {
+      scrollToBottom();
+    });
+
+    return () => {
+      unsubscribeTheme();
+      unsubscribeFileModifications();
+    };
+  }, []);
 
     const baseChat = (
       <div

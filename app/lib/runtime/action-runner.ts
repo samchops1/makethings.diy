@@ -6,6 +6,7 @@ import { createScopedLogger } from '~/utils/logger';
 import { unreachable } from '~/utils/unreachable';
 import type { ActionCallbackData } from './message-parser';
 import type { BoltShell } from '~/utils/shell';
+import { checkWebContainerHealth } from '~/lib/webcontainer/health-check';
 
 const logger = createScopedLogger('ActionRunner');
 
@@ -548,5 +549,29 @@ export class ActionRunner {
       deployStatus: deployStatus as any,
       source: details?.source || 'netlify',
     });
+  }
+  async createFile(data: ActionCallbackData<'file'>) {
+    const { filePath, content } = data;
+
+    logger.info(`Creating file ${filePath}`);
+
+    if (!content) {
+      return;
+    }
+
+    try {
+      // Check WebContainer health before file operations
+      const isHealthy = await checkWebContainerHealth();
+      if (!isHealthy) {
+        throw new Error('WebContainer is not healthy for file operations');
+      }
+
+      const webcontainerInstance = await webcontainer;
+      await webcontainerInstance.fs.writeFile(filePath, content);
+      logger.info(`File ${filePath} created successfully`);
+    } catch (error) {
+      logger.error(`Failed to create file ${filePath}:`, error);
+      throw error;
+    }
   }
 }
