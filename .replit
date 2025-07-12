@@ -1,5 +1,4 @@
-
-modules = ["nodejs-20", "pnpm"]
+modules = ["nodejs-20", "pnpm", "python-3.11"]
 
 [deployment]
 run = ["sh", "-c", "npm run dev"]
