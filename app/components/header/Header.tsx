@@ -31,38 +31,42 @@ export function Header() {
 
   return (
     <header
-      className={classNames('flex items-center px-4 border-b h-[var(--header-height)]', {
+      className={classNames('flex items-center justify-between px-4 border-b h-[var(--header-height)]', {
         'border-transparent': !chat.started,
         'border-bolt-elements-borderColor': chat.started,
       })}
     >
-      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
+      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer min-w-0 flex-shrink-0">
         <div className="i-ph:sidebar-simple-duotone text-xl" />
-        <a href="/" className="text-2xl font-bold text-accent flex items-center hover:scale-105 transition-transform duration-200">
+        <a href="/" className="text-xl md:text-2xl font-bold text-accent flex items-center hover:scale-105 transition-transform duration-200">
           <span className="text-bolt-elements-textPrimary">&lt;/&gt;</span>
           <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold tracking-tight">
             MakeThings
           </span>
-          <span className="text-bolt-elements-textSecondary font-medium">.Dev</span>
+          <span className="text-bolt-elements-textSecondary font-medium hidden sm:inline">.Dev</span>
         </a>
       </div>
       {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
         <>
-          <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
-            <ClientOnly>{() => <ChatDescription />}</ClientOnly>
-          </span>
-          <ClientOnly>
-            {() => (
-              <div className="flex items-center gap-4">
-                <ReplitLoginButton showUserInfo={false} />
-                <HeaderActionButtons chatStarted={chat.started} />
-              </div>
-            )}
-          </ClientOnly>
+          <div className="flex-1 px-4 min-w-0 text-center">
+            <span className="text-bolt-elements-textPrimary truncate block">
+              <ClientOnly>{() => <ChatDescription />}</ClientOnly>
+            </span>
+          </div>
+          <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+            <ClientOnly>
+              {() => (
+                <>
+                  <ReplitLoginButton showUserInfo={false} />
+                  <HeaderActionButtons chatStarted={chat.started} />
+                </>
+              )}
+            </ClientOnly>
+          </div>
         </>
       )}
       {!chat.started && (
-        <div className="ml-auto">
+        <div className="flex-shrink-0">
           <ClientOnly>
             {() => <ReplitLoginButton />}
           </ClientOnly>
