@@ -1,0 +1,34 @@
+{
+  "server": {
+    "watch": {
+      "ignored": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/.pythonlibs/**",
+        "**/.*libs/**",
+        "**/__pycache__/**",
+        "**/site-packages/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/.local/**",
+        "**/.pnpm/**",
+        "**/.cache/**",
+        "**/lib/python3.11/**",
+        "**/site-packages/openai/**",
+        "**/openai/types/**",
+        "**/*.pyc",
+        "**/*.pyo",
+        "**/*.pyd",
+        "**/.pytest_cache/**",
+        "**/.coverage/**",
+        "**/.tox/**",
+        "**/.venv/**",
+        "**/venv/**",
+        "**/env/**",
+        "**/.env/**",
+        "**/node_modules/.pnpm/**",
+        "**/.pnpm-store/**"
+      ]
+    }
+  }
+} 
