@@ -350,7 +350,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                   Where ideas begin
                 </h1>
                 <p className="text-md lg:text-xl mb-8 text-bolt-elements-textSecondary animate-fade-in animation-delay-200">
-                  Bring ideas to life in seconds or get help on existing projects.
+                  How can MakeThings help you today?
                 </p>
               </div>
             )}
