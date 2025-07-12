@@ -24,12 +24,19 @@ export default defineConfig((config) => {
       port: 5173,
       host: '0.0.0.0'
     },
-    watch: {
-      usePolling: true,
-      interval: 1000,
-      ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/build/**']
-    }
-  },
+      watch: {
+        ignored: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/.pythonlibs/**',
+          '**/.*libs/**',
+          '**/__pycache__/**',
+          '**/site-packages/**',
+          '**/dist/**',
+          '**/build/**'
+        ]
+      }
+    },
     plugins: [
       nodePolyfills({
         include: ['buffer', 'process', 'util', 'stream'],
