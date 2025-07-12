@@ -93,9 +93,9 @@ ${commandString}
   };
 }
 
-export function escapeMakethingsArtifactTags(input: string) {
-// Regular expression to match makethingsArtifact tags and their content
-const regex = /(<makethingsArtifact[^>]*>)([\s\S]*?)(<\/makethingsArtifact>)/g;
+export function escapeBoltArtifactTags(input: string) {
+  // Regular expression to match boltArtifact tags and their content
+  const regex = /(<boltArtifact[^>]*>)([\s\S]*?)(<\/boltArtifact>)/g;
 
   return input.replace(regex, (match, openTag, content, closeTag) => {
     // Escape the opening tag
@@ -109,9 +109,9 @@ const regex = /(<makethingsArtifact[^>]*>)([\s\S]*?)(<\/makethingsArtifact>)/g;
   });
 }
 
-export function escapeMakethingsActionTags(input: string) {
-// Regular expression to match makethingsAction tags and their content
-const regex = /(<makethingsAction[^>]*>)([\s\S]*?)(<\/makethingsAction>)/g;
+export function escapeBoltAActionTags(input: string) {
+  // Regular expression to match boltArtifact tags and their content
+  const regex = /(<boltAction[^>]*>)([\s\S]*?)(<\/boltAction>)/g;
 
   return input.replace(regex, (match, openTag, content, closeTag) => {
     // Escape the opening tag
@@ -125,8 +125,8 @@ const regex = /(<makethingsAction[^>]*>)([\s\S]*?)(<\/makethingsAction>)/g;
   });
 }
 
-export function escapeMakethingsTags(input: string) {
-return escapeMakethingsArtifactTags(escapeMakethingsActionTags(input));
+export function escapeBoltTags(input: string) {
+  return escapeBoltArtifactTags(escapeBoltAActionTags(input));
 }
 
 // We have this seperate function to simplify the restore snapshot process in to one single artifact.

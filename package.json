@@ -1,14 +1,14 @@
 {
-  "name": "makethings",
-  "description": "MakeThings.dev - An AI Agent",
+  "name": "bolt",
+  "description": "An AI Agent",
   "private": true,
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
   "version": "1.0.0",
   "author": {
-    "name": "MakeThings.dev team",
-    "email": "maintainers@makethings.dev"
+    "name": "bolt.diy team",
+    "email": "maintainers@bolt.diy"
   },
   "scripts": {
     "deploy": "npm run build && wrangler pages deploy",
@@ -22,9 +22,9 @@
     "start:unix": "bindings=$(./bindings.sh) && wrangler pages dev ./build/client $bindings",
     "start": "node -e \"const { spawn } = require('child_process'); const isWindows = process.platform === 'win32'; const cmd = isWindows ? 'npm run start:windows' : 'npm run start:unix'; const child = spawn(cmd, { shell: true, stdio: 'inherit' }); child.on('exit', code => process.exit(code));\"",
     "dockerstart": "bindings=$(./bindings.sh) && wrangler pages dev ./build/client $bindings --ip 0.0.0.0 --port 5173 --no-show-interactive-dev-session",
-    "dockerrun": "docker run -it -d --name makethings-live -p 5173:5173 --env-file .env.local makethings",
-    "dockerbuild:prod": "docker build -t makethings:production -t makethings:latest --target makethings-production .",
-    "dockerbuild": "docker build -t makethings:development -t makethings:latest --target makethings-development .",
+    "dockerrun": "docker run -it -d --name bolt-ai-live -p 5173:5173 --env-file .env.local bolt-ai",
+    "dockerbuild:prod": "docker build -t bolt-ai:production -t bolt-ai:latest --target bolt-ai-production .",
+    "dockerbuild": "docker build -t bolt-ai:development -t bolt-ai:latest --target bolt-ai-development .",
     "typecheck": "tsc",
     "typegen": "wrangler types",
     "preview": "pnpm run build && pnpm run start",

@@ -27,18 +27,9 @@ export default defineConfig((config) => {
     watch: {
       usePolling: true,
       interval: 1000,
-      ignored: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/.pythonlibs/**',
-        '**/.*libs/**',
-        '**/__pycache__/**',
-        '**/site-packages/**',
-        '**/dist/**',
-        '**/build/**'
-      ]
+      ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/build/**']
     }
-    },
+  },
     plugins: [
       nodePolyfills({
         include: ['buffer', 'process', 'util', 'stream'],

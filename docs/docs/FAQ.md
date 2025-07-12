@@ -2,8 +2,8 @@
 
 ## Models and Setup
 
-??? question "What are the best models for MakeThings.dev?"
-For the best experience with MakeThings.dev, we recommend using the following models:
+??? question "What are the best models for bolt.diy?"
+For the best experience with bolt.diy, we recommend using the following models:
 
     - **Claude 3.5 Sonnet (old)**: Best overall coder, providing excellent results across all use cases
     - **Gemini 2.0 Flash**: Exceptional speed while maintaining good performance
@@ -13,18 +13,18 @@ For the best experience with MakeThings.dev, we recommend using the following mo
     - **Qwen 2.5 Coder 32b**: Best model for self-hosting with reasonable hardware requirements
 
     !!! warning
-        Models with less than 7b parameters typically lack the capability to properly interact with MakeThings!
+        Models with less than 7b parameters typically lack the capability to properly interact with bolt!
 
 ## Best Practices
 
-??? question "How do I get the best results with MakeThings.dev?" - **Be specific about your stack**:
-Mention the frameworks or libraries you want to use (e.g., Astro, Tailwind, ShadCN) in your initial prompt. This ensures that MakeThings.dev scaffolds the project according to your preferences.
+??? question "How do I get the best results with bolt.diy?" - **Be specific about your stack**:  
+ Mention the frameworks or libraries you want to use (e.g., Astro, Tailwind, ShadCN) in your initial prompt. This ensures that bolt.diy scaffolds the project according to your preferences.
 
     - **Use the enhance prompt icon**:
       Before sending your prompt, click the *enhance* icon to let the AI refine your prompt. You can edit the suggested improvements before submitting.
 
     - **Scaffold the basics first, then add features**:
-      Ensure the foundational structure of your application is in place before introducing advanced functionality. This helps MakeThings.dev establish a solid base to build on.
+      Ensure the foundational structure of your application is in place before introducing advanced functionality. This helps bolt.diy establish a solid base to build on.
 
     - **Batch simple instructions**:
       Combine simple tasks into a single prompt to save time and reduce API credit consumption. For example:
@@ -32,21 +32,21 @@ Mention the frameworks or libraries you want to use (e.g., Astro, Tailwind, Shad
 
 ## Project Information
 
-??? question "How do I contribute to MakeThings.dev?"
+??? question "How do I contribute to bolt.diy?"
 Check out our [Contribution Guide](CONTRIBUTING.md) for more details on how to get involved!
 
-??? question "What are the future plans for MakeThings.dev?"
+??? question "What are the future plans for bolt.diy?"
 Visit our [Roadmap](https://roadmap.sh/r/ottodev-roadmap-2ovzo) for the latest updates.  
  New features and improvements are on the way!
 
 ??? question "Why are there so many open issues/pull requests?"
-MakeThings.dev began as a small showcase project on @ColeMedin's YouTube channel to explore editing open-source projects with local LLMs. However, it quickly grew into a massive community effort!
+bolt.diy began as a small showcase project on @ColeMedin's YouTube channel to explore editing open-source projects with local LLMs. However, it quickly grew into a massive community effort!
 
     We're forming a team of maintainers to manage demand and streamline issue resolution. The maintainers are rockstars, and we're also exploring partnerships to help the project thrive.
 
 ## Model Comparisons
 
-??? question "How do local LLMs compare to larger models like Claude 3.5 Sonnet for MakeThings.dev?"
+??? question "How do local LLMs compare to larger models like Claude 3.5 Sonnet for bolt.diy?"
 While local LLMs are improving rapidly, larger models like GPT-4o, Claude 3.5 Sonnet, and DeepSeek Coder V2 236b still offer the best results for complex applications. Our ongoing focus is to improve prompts, agents, and the platform to better support smaller local LLMs.
 
 ## Troubleshooting
@@ -88,7 +88,7 @@ You will need to make sure you have the latest version of Visual Studio C++ inst
 ## Get Help & Support
 
 !!! tip "Community Support"
-[Join the MakeThings.dev Community](https://thinktank.ottomator.ai/c/makethings-dev/17){target=\_blank} for discussions and help
+[Join the bolt.diy Community](https://thinktank.ottomator.ai/c/bolt-diy/17){target=\_blank} for discussions and help
 
 !!! bug "Report Issues"
-[Open an Issue](https://github.com/makethings-dev/makethings/issues/19){target=\_blank} in our GitHub Repository
+[Open an Issue](https://github.com/stackblitz-labs/bolt.diy/issues/19){target=\_blank} in our GitHub Repository

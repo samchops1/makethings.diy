@@ -7,7 +7,7 @@ import { coloredText } from '~/utils/terminal';
 export class TerminalStore {
   #webcontainer: Promise<WebContainer>;
   #terminals: Array<{ terminal: ITerminal; process: WebContainerProcess }> = [];
-  #makethingsTerminal = newBoltShellProcess();
+  #boltTerminal = newBoltShellProcess();
 
   showTerminal: WritableAtom<boolean> = import.meta.hot?.data.showTerminal ?? atom(true);
 
@@ -18,17 +18,17 @@ export class TerminalStore {
       import.meta.hot.data.showTerminal = this.showTerminal;
     }
   }
-  get makethingsTerminal() {
-return this.#makethingsTerminal;
+  get boltTerminal() {
+    return this.#boltTerminal;
   }
 
   toggleTerminal(value?: boolean) {
     this.showTerminal.set(value !== undefined ? value : !this.showTerminal.get());
   }
-  async attachMakeThingsTerminal(terminal: ITerminal) {
+  async attachBoltTerminal(terminal: ITerminal) {
     try {
       const wc = await this.#webcontainer;
-      await this.#makethingsTerminal.init(wc, terminal);
+      await this.#boltTerminal.init(wc, terminal);
     } catch (error: any) {
       terminal.write(coloredText.red('Failed to spawn bolt shell\n\n') + error.message);
       return;

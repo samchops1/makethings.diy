@@ -35,7 +35,7 @@ export const TerminalTabs = memo(() => {
   const closeTerminal = (index: number) => {
     if (index === 0) {
       return;
-    } // Can't close MakeThings terminal
+    } // Can't close bolt terminal
 
     const terminalRef = terminalRefs.current[index];
 
@@ -149,7 +149,7 @@ export const TerminalTabs = memo(() => {
                       onClick={() => setActiveTerminal(index)}
                     >
                       <div className="i-ph:terminal-window-duotone text-lg" />
-                      MakeThings Terminal
+                      Bolt Terminal
                     </button>
                   ) : (
                     <React.Fragment>
@@ -194,7 +194,7 @@ export const TerminalTabs = memo(() => {
           {Array.from({ length: terminalCount + 1 }, (_, index) => {
             const isActive = activeTerminal === index;
 
-            logger.debug(`Starting MakeThings terminal [${index}]`);
+            logger.debug(`Starting bolt terminal [${index}]`);
 
             if (index == 0) {
               return (
@@ -207,7 +207,7 @@ export const TerminalTabs = memo(() => {
                   ref={(ref) => {
                     terminalRefs.current.push(ref);
                   }}
-                  onTerminalReady={(terminal) => workbenchStore.attachMakeThingsTerminal(terminal)}
+                  onTerminalReady={(terminal) => workbenchStore.attachBoltTerminal(terminal)}
                   onTerminalResize={(cols, rows) => workbenchStore.onTerminalResize(cols, rows)}
                   theme={theme}
                 />

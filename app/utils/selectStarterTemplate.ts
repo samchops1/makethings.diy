@@ -160,11 +160,11 @@ export async function getTemplates(templateName: string, title?: string) {
      */
   }
 
-  // exclude    .makethings
-filteredFiles = filteredFiles.filter((x) => x.path.startsWith('.makethings') == false);
+  // exclude    .bolt
+  filteredFiles = filteredFiles.filter((x) => x.path.startsWith('.bolt') == false);
 
-  // check for ignore file in .makethings folder
-const templateIgnoreFile = files.find((x) => x.path.startsWith('.makethings') && x.name == 'ignore');
+  // check for ignore file in .bolt folder
+  const templateIgnoreFile = files.find((x) => x.path.startsWith('.bolt') && x.name == 'ignore');
 
   const filesToImport = {
     files: filteredFiles,
@@ -184,20 +184,20 @@ const templateIgnoreFile = files.find((x) => x.path.startsWith('.makethings') &&
   }
 
   const assistantMessage = `
-MakeThings is initializing your project with the required files using the ${template.name} template.
-<makethingsArtifact id="imported-files" title="${title || 'Create initial files'}" type="bundled">
+Bolt is initializing your project with the required files using the ${template.name} template.
+<boltArtifact id="imported-files" title="${title || 'Create initial files'}" type="bundled">
 ${filesToImport.files
   .map(
     (file) =>
-      `<makethingsAction type="file" filePath="${file.path}">
+      `<boltAction type="file" filePath="${file.path}">
 ${file.content}
-</makethingsAction>`,
-)
-.join('\n')}
-</makethingsArtifact>
+</boltAction>`,
+  )
+  .join('\n')}
+</boltArtifact>
 `;
   let userMessage = ``;
-  const templatePromptFile = files.filter((x) => x.path.startsWith('.makethings')).find((x) => x.name == 'prompt');
+  const templatePromptFile = files.filter((x) => x.path.startsWith('.bolt')).find((x) => x.name == 'prompt');
 
   if (templatePromptFile) {
     userMessage = `

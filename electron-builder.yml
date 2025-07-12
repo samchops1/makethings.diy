@@ -1,5 +1,5 @@
-appId: com.makethings.dev
-productName: MakeThings Local
+appId: com.stackblitz.bolt.diy
+productName: Bolt Local
 directories:
   buildResources: build
   output: dist
@@ -57,7 +57,7 @@ npmRebuild: false
 publish:
   provider: github
   owner: Derek-X-Wang
-  repo: makethings.local
+  repo: bolt.local
   private: true
   releaseType: release
 

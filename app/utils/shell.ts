@@ -55,7 +55,7 @@ export async function newShellProcess(webcontainer: WebContainer, terminal: ITer
 
 export type ExecutionResult = { output: string; exitCode: number } | undefined;
 
-export class MakeThingsShell {
+export class BoltShell {
   #initialized: (() => void) | undefined;
   #readyPromise: Promise<void>;
   #webcontainer: WebContainer | undefined;
@@ -344,5 +344,5 @@ export function cleanTerminalOutput(input: string): string {
 }
 
 export function newBoltShellProcess() {
-return new MakeThingsShell();
+  return new BoltShell();
 }
