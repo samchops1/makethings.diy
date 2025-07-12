@@ -1,0 +1,11 @@
+
+.pythonlibs/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+site-packages/
+.git/
+node_modules/
+dist/
+build/

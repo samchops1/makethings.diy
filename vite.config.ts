@@ -20,11 +20,25 @@ export default defineConfig((config) => {
     port: 5173,
     host: '0.0.0.0',
     allowedHosts: ['localhost', '.replit.dev', '.kirk.replit.dev'],
-    hmr: {
-      port: 5173,
-      host: '0.0.0.0'
-    },
-    watch: false
+    hmr: false,
+    watch: {
+      usePolling: true,
+      interval: 2000,
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.pythonlibs/**',
+        '**/.*libs/**',
+        '**/__pycache__/**',
+        '**/site-packages/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/.*/**',
+        '**/*.pyc',
+        '**/*.pyo',
+        '**/*.egg-info/**'
+      ]
+    }
   },
     plugins: [
       nodePolyfills({
