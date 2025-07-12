@@ -1,4 +1,5 @@
-modules = ["nodejs-20", "pnpm", "python-3.11"]
+
+modules = ["nodejs-20", "pnpm"]
 
 [deployment]
 run = ["sh", "-c", "npm run dev"]
@@ -22,6 +23,3 @@ externalPort = 5173
 [[ports]]
 localPort = 5174
 externalPort = 80
-
-[nix]
-channel = "stable-24_05"
