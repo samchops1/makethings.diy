@@ -1,6 +1,41 @@
 import { useStore } from '@nanostores/react';
 import { ClientOnly } from 'remix-utils/client-only';
 import { chatStore } from '~/lib/stores/chat';
+import { classNames } from '~/utils/classNames';
+import { HeaderActionButtons } from './HeaderActionButtons.client';
+import { ChatDescription } from '~/lib/persistence/ChatDescription.client';
+import { CodeBracketIcon } from '@heroicons/react/24/outline';
+
+interface HeaderProps {
+  className?: string;
+}
+
+export function Header({ className }: HeaderProps) {
+  const chat = useStore(chatStore);
+
+  return (
+    <header
+      className={classNames('flex items-center bg-bolt-elements-background-depth-1 p-5 border-b h-[var(--header-height)]', className)}
+    >
+      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
+        <div className="i-ph:sidebar-simple-duotone text-xl" />
+        <a href="/" className="text-2xl font-semibold text-accent flex items-center">
+          <span className="i-bolt:logo-text?mask mr-2 inline-block" />
+          MakeThings
+        </a>
+      </div>
+      {/* The rest of the header content needs to be here to maintain the original functionality */}
+      <div className="ml-auto">
+          <ClientOnly>
+            {() => <HeaderActionButtons />}
+          </ClientOnly>
+        </div>
+    </header>
+  );
+}
+import { useStore } from '@nanostores/react';
+import { ClientOnly } from 'remix-utils/client-only';
+import { chatStore } from '~/lib/stores/chat';
 import { profileStore } from '~/lib/stores/profile';
 import { classNames } from '~/utils/classNames';
 import { HeaderActionButtons } from './HeaderActionButtons.client';
