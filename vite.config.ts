@@ -24,20 +24,23 @@ export default defineConfig((config) => {
     watch: {
       usePolling: true,
       interval: 2000,
-      ignored: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/.pythonlibs/**',
-        '**/.*libs/**',
-        '**/__pycache__/**',
-        '**/site-packages/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.*/**',
-        '**/*.pyc',
-        '**/*.pyo',
-        '**/*.egg-info/**'
-      ]
+      ignored: (path) => {
+        return (
+          path.includes('/node_modules/') ||
+          path.includes('/.git/') ||
+          path.includes('/.pythonlibs/') ||
+          path.includes('/.*libs/') ||
+          path.includes('/__pycache__/') ||
+          path.includes('/site-packages/') ||
+          path.includes('/dist/') ||
+          path.includes('/build/') ||
+          path.includes('/.local/') ||
+          path.includes('/pnpm/store/') ||
+          path.endsWith('.pyc') ||
+          path.endsWith('.pyo') ||
+          path.includes('.egg-info/')
+        );
+      }
     }
   },
     plugins: [

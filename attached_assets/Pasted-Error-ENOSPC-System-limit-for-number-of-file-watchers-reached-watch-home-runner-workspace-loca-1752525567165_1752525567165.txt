@@ -1,0 +1,17 @@
+Error: ENOSPC: System limit for number of file watchers reached, watch '/home/runner/workspace/.local/share/pnpm/store/v3/files/ce/e8e49febda20383da90387793e93ccacc36ff1692450551bfa32d0ca301022993ea20b7fdf6ac83b3cc0eb19ffa015513b23a0c7ba0c93e6b50204700a2561'
+    at FSWatcher.<computed> (node:internal/fs/watchers:247:19)
+    at Object.watch (node:fs:2490:36)
+    at createFsWatchInstance (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:42780:17)
+    at setFsWatchListener (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:42827:15)
+    at NodeFsHandler._watchWithNodeFs (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:42982:14)
+    at NodeFsHandler._handleFile (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:43046:23)
+    at NodeFsHandler._addToNodeFs (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:43288:21)
+Emitted 'error' event on FSWatcher instance at:
+    at FSWatcher._handleError (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:44481:10)
+    at NodeFsHandler._addToNodeFs (file:///home/runner/workspace/node_modules/.pnpm/vite@5.4.15_@types+node@22.13.14_sass-embedded@1.86.0/node_modules/vite/dist/node/chunks/dep-CevzF2vT.js:43296:18) {
+  errno: -28,
+  syscall: 'watch',
+  code: 'ENOSPC',
+  path: '/home/runner/workspace/.local/share/pnpm/store/v3/files/ce/e8e49febda20383da90387793e93ccacc36ff1692450551bfa32d0ca301022993ea20b7fdf6ac83b3cc0eb19ffa015513b23a0c7ba0c93e6b50204700a2561',
+  filename: '/home/runner/workspace/.local/share/pnpm/store/v3/files/ce/e8e49febda20383da90387793e93ccacc36ff1692450551bfa32d0ca301022993ea20b7fdf6ac83b3cc0eb19ffa015513b23a0c7ba0c93e6b50204700a2561'
+}
