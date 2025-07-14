@@ -14,10 +14,6 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "bash scripts/increase-watchers.sh"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
 args = "npm run dev"
 
 [[ports]]
