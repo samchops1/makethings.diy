@@ -64,8 +64,8 @@ args = "node scripts/dev-with-fallback.js"
 
 [[ports]]
 localPort = 5173
-externalPort = 5173
+externalPort = 80
 
 [[ports]]
 localPort = 5174
-externalPort = 80
+externalPort = 5174
