@@ -2,10 +2,10 @@
 modules = ["nodejs-20", "pnpm"]
 
 [deployment]
-run = ["sh", "-c", "npm run dev:robust"]
+run = ["sh", "-c", "npm run dev"]
 
 [workflows]
-runButton = "Robust Dev Server"
+runButton = "Dev Server"
 
 [[workflows.workflow]]
 name = "Dev Server"
@@ -16,56 +16,10 @@ mode = "sequential"
 task = "shell.exec"
 args = "npm run dev"
 
-[[workflows.workflow]]
-name = "Dev Server with Error Handling"
-author = 42905820
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "echo \"Increasing file watcher limits...\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "echo 524288 | sudo tee /proc/sys/fs/inotify/max_user_watches > /dev/null 2>&1 || echo \"Cannot increase file watchers (permission denied)\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "echo \"Starting development server with error handling...\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npm run dev 2>&1 | tee >(grep -v \"ENOSPC\" >&2) || {"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "  echo \"Server encountered an error but continuing...\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "  sleep 2"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "  npm run dev --force 2>&1 | grep -v \"ENOSPC\" || echo \"Development server running with reduced file watching\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "}"
-
-[[workflows.workflow]]
-name = "Robust Dev Server"
-author = 42905820
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "node scripts/dev-with-fallback.js"
-
 [[ports]]
 localPort = 5173
-externalPort = 80
+externalPort = 5173
 
 [[ports]]
 localPort = 5174
-externalPort = 5174
+externalPort = 80

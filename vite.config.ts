@@ -20,20 +20,10 @@ export default defineConfig((config) => {
     port: 5173,
     host: '0.0.0.0',
     allowedHosts: ['localhost', '.replit.dev', '.kirk.replit.dev'],
-    hmr: {
-      // Enable HMR but make it more resilient
-      clientPort: 5173,
-      handleError: (error) => {
-        // Log the error but don't crash
-        if (error.code !== 'ENOSPC') {
-          console.error('HMR Error:', error);
-        }
-      }
-    },
+    hmr: false,
     watch: {
       usePolling: true,
-      interval: 3000,
-      // More aggressive exclusions
+      interval: 2000,
       ignored: [
         '**/node_modules/**',
         '**/.git/**',
@@ -43,27 +33,10 @@ export default defineConfig((config) => {
         '**/site-packages/**',
         '**/dist/**',
         '**/build/**',
-        '**/.local/**',
-        '**/pnpm/store/**',
-        '**/.pnpm/**',
-        '**/.cache/**',
-        '**/tmp/**',
-        '**/temp/**',
+        '**/.*/**',
         '**/*.pyc',
         '**/*.pyo',
-        '**/.egg-info/**',
-        '**/.next/**',
-        '**/.nuxt/**',
-        '**/coverage/**',
-        '**/.vscode/**',
-        '**/.idea/**',
-        // Specifically exclude the problematic pnpm store paths
-        '/home/runner/workspace/.local/share/pnpm/**',
-        '/home/runner/.local/share/pnpm/**',
-        // Exclude other common cache directories
-        '**/.yarn/**',
-        '**/.npm/**',
-        '**/bower_components/**'
+        '**/*.egg-info/**'
       ]
     }
   },
