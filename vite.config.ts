@@ -36,9 +36,18 @@ export default defineConfig((config) => {
           path.includes('/build/') ||
           path.includes('/.local/') ||
           path.includes('/pnpm/store/') ||
+          path.includes('/.pnpm/') ||
+          path.includes('/.cache/') ||
+          path.includes('/tmp/') ||
+          path.includes('/temp/') ||
           path.endsWith('.pyc') ||
           path.endsWith('.pyo') ||
-          path.includes('.egg-info/')
+          path.includes('.egg-info/') ||
+          path.includes('/.next/') ||
+          path.includes('/.nuxt/') ||
+          path.includes('/coverage/') ||
+          path.includes('/.vscode/') ||
+          path.includes('/.idea/')
         );
       }
     }
