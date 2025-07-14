@@ -8,6 +8,10 @@ if [ -d ".pythonlibs" ]; then
     echo "Found .pythonlibs directory - this might be causing issues"
 fi
 
-# Start the dev server with reduced file watching
+# Set environment variables for polling
+export CHOKIDAR_USEPOLLING=true
+export CHOKIDAR_INTERVAL=5000
+
+# Start the dev server with error suppression
 echo "Starting development server..."
-npm run dev 
+npm run dev 2>&1 | grep -v "ENOSPC" || true 

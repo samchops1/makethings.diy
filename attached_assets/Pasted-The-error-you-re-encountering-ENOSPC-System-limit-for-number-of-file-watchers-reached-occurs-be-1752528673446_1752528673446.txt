@@ -1,0 +1,65 @@
+The error you're encountering, "ENOSPC: System limit for number of file watchers reached," occurs because your system's inotify watcher limit (which monitors file changes) has been exceeded. This is common in development environments like Vite (used by Remix here), especially with package managers like pnpm that involve many symlinked files in the store or large projects/node_modules directories. The path in the error points to the pnpm store, suggesting Vite's watcher is following symlinks and monitoring more files than the system allows by default.
+
+Based on the /home/runner/workspace path, this appears to be running in a GitHub Actions environment (or similar CI runner), where the default limit is often low (e.g., 8192 watchers). Here's how to resolve it:
+
+In GitHub Actions (Recommended Based on Your Log)
+Add the following steps to your workflow YAML file before the step that runs pnpm dev (or equivalent). This temporarily increases the limit for the runner:
+
+yaml
+
+Collapse
+
+Wrap
+
+Copy
+- name: Increase watchers
+  run: |
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
+    sudo sysctl -p
+Rerun your workflow after this change.
+
+On Local Linux/Mac (If This Is Not CI)
+Run these commands in your terminal for a permanent fix (requires sudo; reboot or log out/in to apply):
+
+text
+
+Collapse
+
+Wrap
+
+Copy
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+For a temporary session-only change (no reboot needed):
+
+text
+
+Collapse
+
+Wrap
+
+Copy
+sudo sysctl -w fs.inotify.max_user_watches=524288
+Additional Tips
+Verify Current Limit: Check your current watcher limit with cat /proc/sys/fs/inotify/max_user_watches.
+
+If Memory-Constrained: Start with a lower value like 262144 if 524288 causes issues, but 524288 is standard and safe for most systems.
+
+Alternative Workaround: If increasing the limit isn't feasible, configure Vite to use polling instead of native watching (slower but avoids watcher limits). In your vite.config.js or vite.config.ts:
+
+js
+
+Collapse
+
+Wrap
+
+Copy
+export default {
+  server: {
+    watch: {
+      usePolling: true,
+    },
+  },
+};
+Prevent Recurrence: Clean your pnpm store occasionally with pnpm store prune to remove unused packages, reducing watched files. Avoid running multiple dev servers simultaneously if possible.
+
+This should resolve the issue—restart your dev command after applying the fix. If it persists, share more details about your setup (e.g., OS, full package.json/scripts).

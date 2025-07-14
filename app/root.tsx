@@ -61,7 +61,6 @@ export const Head = createHead(() => (
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Meta />
-    <title>MakeThings</title>
     <Links />
     <script dangerouslySetInnerHTML={{ __html: inlineThemeCode }} />
   </>

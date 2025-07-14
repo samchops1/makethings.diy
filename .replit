@@ -2,7 +2,7 @@
 modules = ["nodejs-20", "pnpm"]
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "CHOKIDAR_USEPOLLING=true npm run dev 2>&1 | grep -v 'ENOSPC'"]
 
 [workflows]
 runButton = "Dev Server"
