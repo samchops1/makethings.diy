@@ -20,36 +20,51 @@ export default defineConfig((config) => {
     port: 5173,
     host: '0.0.0.0',
     allowedHosts: ['localhost', '.replit.dev', '.kirk.replit.dev'],
-    hmr: false,
+    hmr: {
+      // Enable HMR but make it more resilient
+      clientPort: 5173,
+      handleError: (error) => {
+        // Log the error but don't crash
+        if (error.code !== 'ENOSPC') {
+          console.error('HMR Error:', error);
+        }
+      }
+    },
     watch: {
       usePolling: true,
-      interval: 2000,
-      ignored: (path) => {
-        return (
-          path.includes('/node_modules/') ||
-          path.includes('/.git/') ||
-          path.includes('/.pythonlibs/') ||
-          path.includes('/.*libs/') ||
-          path.includes('/__pycache__/') ||
-          path.includes('/site-packages/') ||
-          path.includes('/dist/') ||
-          path.includes('/build/') ||
-          path.includes('/.local/') ||
-          path.includes('/pnpm/store/') ||
-          path.includes('/.pnpm/') ||
-          path.includes('/.cache/') ||
-          path.includes('/tmp/') ||
-          path.includes('/temp/') ||
-          path.endsWith('.pyc') ||
-          path.endsWith('.pyo') ||
-          path.includes('.egg-info/') ||
-          path.includes('/.next/') ||
-          path.includes('/.nuxt/') ||
-          path.includes('/coverage/') ||
-          path.includes('/.vscode/') ||
-          path.includes('/.idea/')
-        );
-      }
+      interval: 3000,
+      // More aggressive exclusions
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.pythonlibs/**',
+        '**/.*libs/**',
+        '**/__pycache__/**',
+        '**/site-packages/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/.local/**',
+        '**/pnpm/store/**',
+        '**/.pnpm/**',
+        '**/.cache/**',
+        '**/tmp/**',
+        '**/temp/**',
+        '**/*.pyc',
+        '**/*.pyo',
+        '**/.egg-info/**',
+        '**/.next/**',
+        '**/.nuxt/**',
+        '**/coverage/**',
+        '**/.vscode/**',
+        '**/.idea/**',
+        // Specifically exclude the problematic pnpm store paths
+        '/home/runner/workspace/.local/share/pnpm/**',
+        '/home/runner/.local/share/pnpm/**',
+        // Exclude other common cache directories
+        '**/.yarn/**',
+        '**/.npm/**',
+        '**/bower_components/**'
+      ]
     }
   },
     plugins: [
