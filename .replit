@@ -2,7 +2,7 @@
 modules = ["nodejs-20", "pnpm"]
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npm run dev:robust"]
 
 [workflows]
 runButton = "Robust Dev Server"

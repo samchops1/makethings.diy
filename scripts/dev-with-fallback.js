@@ -1,6 +1,6 @@
 
-const { spawn } = require('child_process');
-const process = require('process');
+import { spawn } from 'child_process';
+import process from 'process';
 
 console.log('🚀 Starting robust development server...');
 
