@@ -14,7 +14,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "CHOKIDAR_USEPOLLING=true CHOKIDAR_INTERVAL=2000 npm run dev"
 
 [[ports]]
 localPort = 5173
