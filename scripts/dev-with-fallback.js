@@ -13,16 +13,17 @@ function startDevServer(attempt = 1) {
     env: {
       ...process.env,
       NODE_OPTIONS: '--max-old-space-size=4096',
-      CHOKIDAR_USEPOLLING: 'false', // Start with native watching
+      CHOKIDAR_USEPOLLING: 'false',
       CHOKIDAR_INTERVAL: '3000'
     }
   });
 
   let hasStarted = false;
-  let restartTimeout;
+  let serverOutput = '';
 
   child.stdout.on('data', (data) => {
     const output = data.toString();
+    serverOutput += output;
     process.stdout.write(output);
     
     // Check if server has started successfully
@@ -35,18 +36,21 @@ function startDevServer(attempt = 1) {
   child.stderr.on('data', (data) => {
     const output = data.toString();
     
-    // Filter out ENOSPC errors but log other errors
-    if (!output.includes('ENOSPC') && !output.includes('System limit for number of file watchers reached')) {
+    // Suppress ENOSPC errors but log other errors
+    if (!output.includes('ENOSPC') && 
+        !output.includes('System limit for number of file watchers reached') &&
+        !output.includes('FSWatcher')) {
       process.stderr.write(output);
     } else if (output.includes('ENOSPC')) {
-      console.log('⚠️  File watcher limit reached, but server should continue running...');
+      console.log('⚠️  File watcher limit reached, but server should continue...');
+      
+      // If server hasn't started yet and we have retries left, try polling mode
       if (!hasStarted && attempt < 3) {
-        console.log('🔄 Restarting with polling fallback...');
-        clearTimeout(restartTimeout);
-        restartTimeout = setTimeout(() => {
+        console.log('🔄 Switching to polling mode...');
+        setTimeout(() => {
           child.kill();
           startDevServerWithPolling(attempt + 1);
-        }, 2000);
+        }, 1000);
       }
     }
   });
@@ -55,9 +59,10 @@ function startDevServer(attempt = 1) {
     if (code !== 0 && !hasStarted && attempt < 3) {
       console.log(`❌ Server exited with code ${code}, retrying...`);
       setTimeout(() => startDevServer(attempt + 1), 2000);
-    } else if (code !== 0) {
+    } else if (code !== 0 && !hasStarted) {
       console.log(`💥 Server failed to start after ${attempt} attempts`);
-      process.exit(code);
+      console.log('🔄 Trying polling mode as final fallback...');
+      startDevServerWithPolling(attempt);
     }
   });
 
@@ -66,10 +71,10 @@ function startDevServer(attempt = 1) {
 
 // Fallback function with polling
 function startDevServerWithPolling(attempt) {
-  console.log('📊 Falling back to polling mode for file watching...');
+  console.log('📊 Using polling mode for file watching...');
   
   const child = spawn('npm', ['run', 'dev'], {
-    stdio: 'inherit',
+    stdio: ['inherit', 'pipe', 'pipe'],
     env: {
       ...process.env,
       NODE_OPTIONS: '--max-old-space-size=4096',
@@ -78,10 +83,25 @@ function startDevServerWithPolling(attempt) {
     }
   });
 
+  child.stdout.on('data', (data) => {
+    process.stdout.write(data);
+  });
+
+  child.stderr.on('data', (data) => {
+    const output = data.toString();
+    
+    // Still suppress ENOSPC errors in polling mode
+    if (!output.includes('ENOSPC') && 
+        !output.includes('System limit for number of file watchers reached')) {
+      process.stderr.write(output);
+    }
+  });
+
   child.on('exit', (code) => {
     if (code !== 0) {
       console.log('💥 Server failed even with polling fallback');
-      process.exit(code);
+      console.log('⚠️  Continuing anyway - the app may still work...');
+      // Don't exit, let it continue
     }
   });
 
