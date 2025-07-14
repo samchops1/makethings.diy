@@ -63,6 +63,8 @@ function startDevServer(attempt = 1) {
       console.log(`💥 Server failed to start after ${attempt} attempts`);
       console.log('🔄 Trying polling mode as final fallback...');
       startDevServerWithPolling(attempt);
+    } else if (code === 0) {
+      console.log('✅ Server exited cleanly');
     }
   });
 
@@ -120,4 +122,22 @@ process.on('SIGTERM', () => {
 });
 
 // Start the server
-startDevServer();
+const serverProcess = startDevServer();
+
+// Keep the process alive
+const keepAlive = setInterval(() => {
+  // This keeps the Node.js process running
+}, 30000);
+
+// Handle graceful shutdown
+const cleanup = () => {
+  clearInterval(keepAlive);
+  if (serverProcess) {
+    serverProcess.kill('SIGTERM');
+  }
+  process.exit(0);
+};
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
+process.on('exit', cleanup);
