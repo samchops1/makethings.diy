@@ -1,0 +1,62 @@
+Open or Create vite.config.js (or vite.config.ts if using TypeScript):
+
+This file should be in your project's root directory.
+If it doesn't exist, create it.
+Add the Polling Configuration:
+Add the following code (adjust if you have existing config):
+
+js
+
+Collapse
+
+Wrap
+
+Copy
+import { defineConfig } from 'vite';
+import remixConfig from '@remix-run/dev'; // Or your Remix plugin if different
+
+export default defineConfig({
+  // Your existing config here...
+  server: {
+    watch: {
+      usePolling: true,
+    },
+  },
+});
+This tells Vite's watcher (powered by Chokidar) to poll files instead of using system watchers.
+If you already have a server or watch section, merge this in.
+Restart Your Dev Server:
+
+Stop the current process (Ctrl+C in console).
+Run npm run dev again (or use the Replit Run button if configured).
+If the workflow in .replit is set up, it should trigger automatically.
+Additional Optimizations
+Ignore Unnecessary Directories: To reduce polling overhead, add ignores for large/irrelevant paths:
+js
+
+Collapse
+
+Wrap
+
+Copy
+server: {
+  watch: {
+    usePolling: true,
+    ignored: ['**/node_modules/**', '**/.git/**', '**/.pnpm/**'],
+  },
+}
+This skips watching node_modules (and pnpm's internal symlinks), which often causes the bloat leading to ENOSPC.
+Prune pnpm Store: Run pnpm store prune to remove unused packages from the store, potentially reducing watched files if Vite still scans them indirectly.
+If Polling Impacts Performance: As a last resort, experiment with followSymlinks: false in the watch options to avoid resolving/traversing pnpm's symlinked store files:
+js
+
+Collapse
+
+Wrap
+
+Copy
+watch: {
+  usePolling: true,
+  followSymlinks: false,
+}
+This should resolve the ENOSPC error without needing system-level changes. If it doesn't (e.g., due to Remix-specific quirks), share your full vite.config.js, package.json scripts, and .replit file for further tweaks. If you're open to it, consider migrating to a local setup or another platform where sysctl adjustments are easier.
