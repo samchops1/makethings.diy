@@ -24,6 +24,7 @@ export default defineConfig((config) => {
     watch: {
       usePolling: true,
       interval: 2000,
+      followSymlinks: false,
       ignored: [
         '**/node_modules/**',
         '**/.git/**',
